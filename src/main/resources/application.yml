@@ -1,0 +1,34 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: cjs-springboot-example
+  datasource:
+    url: jdbc:mysql://49.4.15.150:3306/oh_coupon?useUnicode=true&characterEncoding=utf-8
+    username: dev
+    password: quanshiDev
+    driver-class-name: com.mysql.jdbc.Driver
+  freemarker:
+    suffix: .ftl
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 3600000ms
+  redis:
+    host: 49.4.1.61
+    port: 6379
+    password: Rd^is*8
+    database: 2
+  kafka:
+    bootstrap-servers: 10.123.52.76:9092,10.123.52.76:9093,10.123.52.76:9094
+    consumer:
+      group-id: myGroup
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.cjs.boot.domain.entity
+
+logging.level.com.cjs.boot.mapper: debug
+
+
+
