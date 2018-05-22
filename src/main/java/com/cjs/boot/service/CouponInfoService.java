@@ -14,4 +14,6 @@ public interface CouponInfoService {
 
     void deleteById(Long id);
 
+    int save(CouponInfo couponInfo);
+
 }

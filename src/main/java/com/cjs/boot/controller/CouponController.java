@@ -56,4 +56,15 @@ public class CouponController extends BaseController {
         return RespResult.success();
     }
 
+    @GetMapping("/add.html")
+    public ModelAndView add() {
+        return new ModelAndView("coupon/add");
+    }
+
+    @PostMapping("/save.json")
+    @ResponseBody
+    public RespResult save(@RequestBody CouponInfo couponInfo, @CookieValue String token) {
+        couponInfoService.save(couponInfo);
+        return RespResult.success();
+    }
 }

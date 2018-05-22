@@ -12,7 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,5 +68,12 @@ public class CouponInfoServiceImpl implements CouponInfoService {
             log.info("缓存中删除");
 //            couponInfoMapper.deleteByPrimaryKey(id);
         }
+    }
+
+    @Override
+    public int save(CouponInfo couponInfo) {
+        couponInfo.setCreateTime(new Date());
+        couponInfo.setUpdateTime(new Date());
+        return couponInfoMapper.insertSelective(couponInfo);
     }
 }

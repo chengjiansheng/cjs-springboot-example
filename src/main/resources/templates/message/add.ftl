@@ -43,6 +43,15 @@
                             </form>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="progress" style="margin-top: 20px;">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                    0%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,6 +70,27 @@
                 console.log(res);
             });
         }
+
+
+        var ws = new WebSocket("ws://localhost:8080/processBar");
+        ws.onopen = function() {
+            console.log("open");
+            ws.send("Hello");
+        }
+        ws.onmessage = function(evt) {
+            console.log("收到消息: " + evt.data);
+            $(".progress-bar").attr("aria-valuenow", evt.data);
+            $(".progress-bar").attr("style", "width: " + evt.data + "%;");
+            $(".progress-bar").text(evt.data + "%");
+        }
+        ws.onerror = function(e) {
+            console.error(e);
+            console.log('发生异常:' + e.message);
+        }
+        ws.onclose = function() {
+            console.log("closed");
+        }
+
     </script>
 </body>
 </html>

@@ -1,15 +1,23 @@
 package com.cjs.boot;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.cjs.boot.event.BlackListListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //@MapperScan("com.cjs.boot.mapper")
 @EnableCaching
@@ -37,6 +45,20 @@ public class CjsSpringbootExampleApplication {
 				registry.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html"));
 			}
 		};
+	}
+
+	@Bean
+	public HttpMessageConverters fastJsonHttpMessageConverters(){
+		FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
+		FastJsonConfig fastJsonConfig = new FastJsonConfig();
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+		List<MediaType> mediaTypes = new ArrayList<>();
+		mediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+		fastJsonHttpMessageConverter.setSupportedMediaTypes(mediaTypes);
+		fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
+
+		return new HttpMessageConverters(fastJsonHttpMessageConverter);
+
 	}
 
 }
