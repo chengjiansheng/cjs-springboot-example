@@ -1,6 +1,7 @@
 package com.cjs.boot.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.cjs.boot.domain.entity.CouponInfoExample;
 import com.cjs.boot.mapper.CouponInfoMapper;
 import com.cjs.boot.domain.entity.CouponInfo;
 import com.cjs.boot.service.CouponInfoService;
@@ -26,6 +27,11 @@ public class CouponInfoServiceImpl implements CouponInfoService {
 
     @Autowired
     private CouponInfoMapper couponInfoMapper;
+
+    @Override
+    public List<CouponInfo> getAll() {
+        return couponInfoMapper.selectByExample(new CouponInfoExample());
+    }
 
     @Cacheable(cacheNames = "coupon", key = "'merchantId:' + #merchantId", unless = "#result == null or #result.size() <= 0")
     @Override
@@ -75,5 +81,10 @@ public class CouponInfoServiceImpl implements CouponInfoService {
         couponInfo.setCreateTime(new Date());
         couponInfo.setUpdateTime(new Date());
         return couponInfoMapper.insertSelective(couponInfo);
+    }
+
+    @Override
+    public int update(CouponInfo couponInfo) {
+        return couponInfoMapper.updateByPrimaryKeySelective(couponInfo);
     }
 }

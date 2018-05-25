@@ -19,4 +19,13 @@ public class HelloServiceImpl implements HelloService {
         }
         log.info("123");
     }
+
+    @Override
+    public String sayHi(String name) {
+        if ("xiao".equals(name)) {
+            throw new IllegalArgumentException("你骗人");
+        }
+
+        return "Hi, " + name;
+    }
 }

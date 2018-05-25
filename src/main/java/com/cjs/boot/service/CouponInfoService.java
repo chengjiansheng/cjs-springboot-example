@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CouponInfoService {
 
+    List<CouponInfo> getAll();
+
     List<CouponInfo> getByMerchantId(Integer merchantId);
 
     void deleteByMerchantId(Integer merchantId);
@@ -15,5 +17,7 @@ public interface CouponInfoService {
     void deleteById(Long id);
 
     int save(CouponInfo couponInfo);
+
+    int update(CouponInfo couponInfo);
 
 }
