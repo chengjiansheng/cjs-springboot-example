@@ -5,6 +5,7 @@ import com.cjs.boot.domain.entity.CouponInfoExample;
 import com.cjs.boot.mapper.CouponInfoMapper;
 import com.cjs.boot.domain.entity.CouponInfo;
 import com.cjs.boot.service.CouponInfoService;
+import com.cjs.example.annotation.SystemControllerLog;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class CouponInfoServiceImpl implements CouponInfoService {
         return couponInfoMapper.selectByExample(new CouponInfoExample());
     }
 
+    @SystemControllerLog(description = "servisefrfsdf")
     @Cacheable(cacheNames = "coupon", key = "'merchantId:' + #merchantId", unless = "#result == null or #result.size() <= 0")
     @Override
     public List<CouponInfo> getByMerchantId(Integer merchantId) {

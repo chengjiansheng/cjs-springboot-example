@@ -28,7 +28,7 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.cjs.boot.domain.entity
 
-logging.level.com.cjs.boot.mapper: debug
+#logging.level.com.cjs.boot.mapper: debug
 
 
 

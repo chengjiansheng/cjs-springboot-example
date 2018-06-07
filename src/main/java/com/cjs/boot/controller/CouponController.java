@@ -3,12 +3,15 @@ package com.cjs.boot.controller;
 import com.cjs.boot.domain.entity.CouponInfo;
 import com.cjs.boot.response.RespResult;
 import com.cjs.boot.service.CouponInfoService;
+import com.cjs.example.annotation.SystemControllerLog;
+import com.cjs.example.aspect.SystemLogAspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -17,6 +20,9 @@ import java.util.List;
 @RequestMapping("/coupon")
 @Validated
 public class CouponController extends BaseController {
+
+    @Resource
+    private SystemLogAspect systemLogAspect;
 
     @Autowired
     private CouponInfoService couponInfoService;
@@ -28,6 +34,7 @@ public class CouponController extends BaseController {
         return modelAndView;
     }
 
+    @SystemControllerLog(description = "按商户ID查询")
     @GetMapping("/getByMechantId.json")
     @ResponseBody
     public RespResult<List<CouponInfo>> getByMechantId(Integer merchantId) {
